@@ -30,7 +30,7 @@ tmpdir=/tmp/cfl-logs
 rm -rf $tmpdir
 mkdir -p $tmpdir
 
-kubectl get pods > /tmp/cfl-logs/pod-status.log
+kubectl get pods > $tmpdir/pod-status.log
 
 pods=`kubectl get pods|grep -v NAME|awk '{print $1}'|tr '\n' ' '`
 
