@@ -32,11 +32,16 @@ mkdir -p $tmpdir
 
 kubectl get pods > $tmpdir/pod-status.log
 
-pods=`kubectl get pods|grep -v NAME|awk '{print $1}'|tr '\n' ' '`
+pods=`kubectl get pods -o=jsonpath='{.items[*].metadata.name}'`
 
 for pod in $pods; do
   kubectl describe pod $pod > $tmpdir/$pod.describe;
   kubectl logs $pod > $tmpdir/$pod.log;
+
+  initContainers=`kubectl get pod $pod -o=jsonpath='{.spec.initContainers[*].name}'`
+  for initContainer in $initContainers; do
+    kubectl logs $pod -c $initContainer > $tmpdir/$pod.$initContainer.log;
+  done
 done
 
 logbundle=~/seahorse-logs.tar.gz
