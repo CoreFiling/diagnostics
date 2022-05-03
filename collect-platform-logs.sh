@@ -39,6 +39,13 @@ for pod in $pods; do
   kubectl logs $pod > $tmpdir/$pod.log;
 done
 
+TNWSP_LOGS=/var/log/tnwsp
+
+if test -d $TNWSP_LOGS ; then
+  echo "Attempting to collect TNWSP logs. Note that you need to re-run this script with 'sudo' if the following step fails"
+  tar czf $tmpdir/tnwsp-logs.tar.gz $TNWSP_LOGS
+fi
+
 logbundle=~/tndp-logs.tar.gz
 
 cd $tmpdir && tar czf $logbundle .
