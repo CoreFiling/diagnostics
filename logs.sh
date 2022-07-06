@@ -54,7 +54,7 @@ sys_req () {
 get_pod_logs () {
   pods=`kubectl get pods --no-headers=true | awk '{print $1}'`
   for pod in $pods; do
-    if [ -z "$DEBUG" ];then
+    if [[ "$DEBUG" == "true" ]];then
       echo "Getting logs for pod $pod" 
     fi
     kubectl describe pod $pod > $tmpdir/$pod.describe;
