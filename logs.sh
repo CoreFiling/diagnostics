@@ -5,7 +5,7 @@ usage () {
   echo "  command [REQUIRED] --app=(seahorse|platform|beacon) [OPTIONAL] --flag"
   echo "  FLAGS:"
   echo "    -a=*|--app=* to set the app name"
-  echo "    -i|--init-containers to include logs from pod init containers (must be used with -l)"
+  echo "    -i|--init-containers to include logs from pod init containers"
   echo "    -d|--debug for verbose output"
 
   exit 0
