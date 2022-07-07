@@ -87,8 +87,7 @@ bundle_logs () {
 set_flags $@
 
 if [ -z "$APP" ]; then
-  echo "App not set. please set the app name using '--app=name'. Run this command with -h to see more usage info."
-  exit 1
+  APP=$( kubectl config view --minify -o jsonpath='{..namespace}' )
 fi
 
 echo "Confirming system requirements"
