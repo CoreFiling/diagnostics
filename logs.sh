@@ -52,6 +52,8 @@ sys_req () {
 }
 
 get_pod_logs () {
+  kubectl get pods 2>&1 > $tmpdir/pods.status.txt
+
   pods=`kubectl get pods --no-headers=true | awk '{print $1}'`
   for pod in $pods; do
     if [ ! -z "$DEBUG" ];then
