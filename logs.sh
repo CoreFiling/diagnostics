@@ -52,21 +52,27 @@ sys_req () {
 }
 
 get_pod_logs () {
-  kubectl get pods 2>&1 > $tmpdir/pods.status.txt
+  kubectl get pods -A 2>&1 > $tmpdir/pods.status.txt
 
-  pods=`kubectl get pods --no-headers=true | awk '{print $1}'`
-  for pod in $pods; do
-    if [ ! -z "$DEBUG" ];then
-      echo "Getting logs for pod $pod" 
-    fi
-    kubectl describe pod $pod > $tmpdir/$pod.describe;
-    kubectl logs $pod > $tmpdir/$pod.log;
-    if [ $INIT_CONTAINERS=="true" ]; then
-      initContainers=`kubectl get pod $pod -o=jsonpath='{.spec.initContainers[*].name}'`
-      for initContainer in $initContainers; do
-        kubectl logs $pod -c $initContainer > $tmpdir/$pod.$initContainer.log;
-      done
-    fi
+  namespaces=`kubectl get namespaces|awk '{print $1}'|grep -v NAME`
+
+  for namespace in $namespaces; do
+
+    pods=`kubectl get pods -n $namespace --no-headers=true | awk '{print $1}'`
+    for pod in $pods; do
+      if [ ! -z "$DEBUG" ];then
+        echo "Getting logs for pod $pod" 
+      fi
+      kubectl -n $namespace describe pod $pod > $tmpdir/$pod.describe;
+      kubectl -n $namespace logs $pod > $tmpdir/$pod.log;
+      if [ $INIT_CONTAINERS=="true" ]; then
+        initContainers=`kubectl -n $namespace get pod $pod -o=jsonpath='{.spec.initContainers[*].name}'`
+        for initContainer in $initContainers; do
+          kubectl -n $namespace logs $pod -c $initContainer > $tmpdir/$pod.$initContainer.log;
+        done
+      fi
+    done
+
   done
 }
 
