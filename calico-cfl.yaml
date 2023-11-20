@@ -21,6 +21,8 @@ kind: ServiceAccount
 metadata:
   name: calico-kube-controllers
   namespace: kube-system
+imagePullSecrets:
+- name: regcred
 ---
 # Source: calico/templates/calico-node.yaml
 apiVersion: v1
@@ -28,6 +30,8 @@ kind: ServiceAccount
 metadata:
   name: calico-node
   namespace: kube-system
+imagePullSecrets:
+- name: regcred
 ---
 # Source: calico/templates/calico-config.yaml
 # This ConfigMap is used to configure a self-hosted Calico installation.
