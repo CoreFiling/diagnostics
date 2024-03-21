@@ -76,14 +76,6 @@ get_pod_logs () {
   done
 }
 
-get_TNWSP_logs () {
-  TNWSP_LOGS=/var/log/tnwsp
-  if test -d $TNWSP_LOGS ; then
-    echo "Attempting to collect TNWSP logs. Note that you need to re-run this script with 'sudo' if the following step fails"
-    tar czf $tmpdir/tnwsp-logs.tar.gz $TNWSP_LOGS
-  fi
-}
-
 bundle_logs () {
   logbundle=~/$APP-logs.tar.gz
   cd $tmpdir && tar czf $logbundle .
@@ -103,10 +95,6 @@ tmpdir=/tmp/cfl-logs && rm -rf $tmpdir && mkdir -p $tmpdir
 
 echo "Collecting logs"
 get_pod_logs
-
-if [[ "$APP" == "platform" ]]; then
-  get_TNWSP_logs
-fi
 
 echo "Bundling logs"
 bundle_logs
