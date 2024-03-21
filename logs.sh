@@ -96,6 +96,9 @@ tmpdir=/tmp/cfl-logs && rm -rf $tmpdir && mkdir -p $tmpdir
 echo "Collecting logs"
 get_pod_logs
 
+echo "Adding CPU usage data"
+/bin/top -b -n1 > $tmpdir/process-snapshot-from-top.txt
+
 echo "Bundling logs"
 bundle_logs
 
