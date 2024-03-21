@@ -71,6 +71,8 @@ get_pod_logs () {
           kubectl -n $namespace logs $pod -c $initContainer > $tmpdir/$pod.$initContainer.log;
         done
       fi
+      # not every pod will have a previous but it's worth trying
+      kubectl -n $namespace logs -p $pod > $tmpdir/$pod.previous.log 2>/dev/null ;
     done
 
   done
