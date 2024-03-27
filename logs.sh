@@ -90,6 +90,14 @@ if [ -z "$APP" ]; then
   APP=$( kubectl config view --minify -o jsonpath='{..namespace}' )
 fi
 
+
+# Verify kubectl is working
+kubectl get pods >/dev/null
+if [ $? -ne 0 ]; then
+  echo "ERROR kubectl is not working; this needs to be corrected before this script will work."
+  exit
+fi
+
 echo "Confirming system requirements"
 sys_req
 
