@@ -16,4 +16,4 @@ echo "Scaling TNWSP up"
 kubectl scale deployment --replicas=1 tnwsp-tnwsp
 
 echo "Applying performance fix"
-kubectl get deployments validation-service-impl -o json | sed 's@"docker.corefiling.com/platform/validation-service-impl:.*"@"docker.corefiling.com/platform/validation-service-impl:1.15.0-ci.beacon2471.512634"@' | kubectl replace -f -"
+kubectl get deployments validation-service-impl -o json | sed 's@"docker.corefiling.com/platform/validation-service-impl:.*"@"docker.corefiling.com/platform/validation-service-impl:1.15.0-ci.beacon2471.512634"@' | kubectl replace -f -
