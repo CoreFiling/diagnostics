@@ -7,7 +7,7 @@ echo "Updating TNWSP version"
 kubectl get deployments tnwsp-tnwsp -o json | sed 's@"docker.corefiling.com/tnwsp/tnwsp:.*"@"docker.corefiling.com/tnwsp/tnwsp:2.85.0"@' | kubectl replace -f -
 
 echo "Updating plugin version"
-sed -i "s#beacon-tnwsp-plugin-.*.jar#beacon-tnwsp-plugin-2.40.4e.jar#g" /opt/cfl/tnwsp/config/processorPoolConfig.xml
+sed -i "s#beacon-tnwsp-plugin-.*.jar#beacon-tnwsp-plugin-2.40.4f.jar#g" /opt/cfl/tnwsp/config/processorPoolConfig.xml
 
 echo "Re-enabling report package validation"
 sed -i 's#<property name="validate-report-package" value=".*"#<property name="validate-report-package" value="true"#g' /opt/cfl/tnwsp/config/processorPoolConfig.xml
