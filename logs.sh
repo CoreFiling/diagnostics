@@ -109,6 +109,12 @@ get_pod_logs
 echo "Adding CPU usage data"
 /bin/top -b -n1 > $tmpdir/process-snapshot-from-top.txt
 
+echo "Adding disk usage"
+df -h > $tmpdir/disk-usage.txt
+
+echo "Adding node status"
+kubectl describe nodes > $tmpdir/nodes.txt
+
 echo "Bundling logs"
 bundle_logs
 
