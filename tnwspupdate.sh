@@ -6,4 +6,4 @@ kubectl get deployment tnwsp-tnwsp -oyaml|sed "s#docker.corefiling.com/tnwsp/tnw
 
 echo "TNWSP version should now show as 2.86.0 below"
 
-kubectl get deployment tnwsp-tnwsp|grep tnwsp/tnwsp
+kubectl get deployment tnwsp-tnwsp -oyaml|grep tnwsp/tnwsp
