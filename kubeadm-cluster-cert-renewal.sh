@@ -22,7 +22,7 @@ echo -n | openssl s_client -connect localhost:10257 2>&1 | sed -ne '/-BEGIN CERT
 # Cert from scheduler
 echo -n | openssl s_client -connect localhost:10259 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | openssl x509 -text -noout | grep "Not After"
 
-echo ">>> Copying updated configuration to root user's home directory"
+echo ">>> Copying updated configuration to current user's home directory"
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
