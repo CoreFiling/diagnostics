@@ -49,6 +49,12 @@ sys_req () {
     echo "Available memory appears to be less than the minimum system requirement of 16GB. Correct this before continuing."
     exit 1
   fi
+
+  diskPercentUsed=`df -h / | egrep -o '[0-9]+%'|egrep -o '[0-9]+'`
+  if [ $diskPercentUsed -gt 80 ]; then
+    echo "Disk space used on root volume is over 80%. Fix this or Kubernetes will not work."
+    exit 1
+  fi
 }
 
 get_pod_logs () {
