@@ -26,6 +26,10 @@ echo ">>> Copying updated configuration to current user's home directory"
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
+echo ">>> Updating root's kubernetes configuration"
+sudo cp -i /etc/kubernetes/admin.conf ~root/.kube/config
+sudo chown $(id -u):$(id -g) ~root/.kube/config
+
 echo ">>> You should see a list of pods below if the cluster is now running correctly"
 sudo kubectl get pod -A
 
